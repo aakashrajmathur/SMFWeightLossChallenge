@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SMF Weight Loss Challenge</title>
+	<style>
+		body {
+		    background-image: url("http://gdurl.com/3an6");
+		    background-repeat: repeat;
+		}
+		#centerBody {
+		  width: 800px;
+		  margin:0 auto;
+		  height: 100%;
+		  text-align: center;
+		}
+		
+		a, a:visited {
+        	text-decoration:none;
+        	outline:none;
+        	color:#54a6de;
+        }
+        
+        a:hover{
+        	text-decoration:underline;
+        }
+        
+        section, footer{
+        	display: block;
+        }
+        
+        
+        /*----------------------------
+        	Main Section
+        -----------------------------*/
+        
+        #note{
+        	color: white;
+        	font-size: 12px;
+        	font-family: Shadows Into Light;
+        	margin: 0 auto;
+        	padding: 4px;
+        	text-align: center;
+        	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+        	width: 400px;
+        }
+		
+		
+		.countdownHolder{
+        	width:450px;
+        	margin:0 auto;
+        	font: 40px/1.5 'Open Sans Condensed',sans-serif;
+        	text-align:center;
+        	letter-spacing:-3px;
+        }
+    
+        .position{
+        	display: inline-block;
+        	height: 1.6em;
+        	overflow: hidden;
+        	position: relative;
+        	width: 1.05em;
+        }
+        
+        .digit{
+        	position:absolute;
+        	display:block;
+        	width:1em;
+        	background-color:#D3D3D3;
+        	border-radius:0.2em;
+        	text-align:center;
+        	color:#fff;
+        	letter-spacing:-1px;
+        }
+        
+        .digit.static{
+        	box-shadow:1px 1px 1px rgba(4, 4, 4, 0.35);
+        	
+        	background-image: linear-gradient(bottom, #3A3A3A 50%, #444444 50%);
+        	background-image: -o-linear-gradient(bottom, #3A3A3A 50%, #444444 50%);
+        	background-image: -moz-linear-gradient(bottom, #3A3A3A 50%, #444444 50%);
+        	background-image: -webkit-linear-gradient(bottom, #3A3A3A 50%, #444444 50%);
+        	background-image: -ms-linear-gradient(bottom, #3A3A3A 50%, #444444 50%);
+        	
+        	background-image: -webkit-gradient(
+        		linear,
+        		left bottom,
+        		left top,
+        		color-stop(0.5, #3A3A3A),
+        		color-stop(0.5, #444444)
+        	);
+        }
+        
+        /**
+         * You can use these classes to hide parts
+         * of the countdown that you don't need.
+         */
+        
+        .countDays{ /* display:none !important;*/ }
+        .countDiv0{ /* display:none !important;*/ }
+        .countHours{}
+        .countDiv1{}
+        .countMinutes{}
+        .countDiv2{}
+        .countSeconds{}
+        
+        
+        .countDiv{
+        	display:inline-block;
+        	width:16px;
+        	height:1.6em;
+        	position:relative;
+        }
+        
+        .countDiv:before,
+        .countDiv:after{
+        	position:absolute;
+        	width:5px;
+        	height:5px;
+        	background-color:#444;
+        	border-radius:50%;
+        	left:50%;
+        	margin-left:-3px;
+        	top:0.5em;
+        	box-shadow:1px 1px 1px rgba(4, 4, 4, 0.5);
+        	content:'';
+        }
+        
+        .countDiv:after{
+        	top:0.9em;
+        }
+		
+	</style>
+	<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,200italic' rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" />
+	
+	
+	
+	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        
+        var jsonData = [
+          ['Date', 'Mom', {type: 'string', role:'annotation'}, 'Amrish', {type: 'string', role:'annotation'}, 'Neha', {type: 'string', role:'annotation'}, 'Aakash', {type: 'string', role:'annotation'}, 'Akshata', {type: 'string', role:'annotation'}],
+          ['7/9/2016',0, null,0, null,0, null,0, null,0, null],
+          ['7/16/2016',1.31, null,2.04, null,0.27, null,1.28, null,1.84, null], 
+          ['7/23/2016', 1.25, null, 1.02, null, 0.27, null, 0.09, null, 0.49, null],
+          ['7/30/2016', 1.76, null, 0.40, null, 1.34, null, -0.19, null, 1.71, null],
+          ['8/8/2016', -0.23, "Mom", 1.14 ,"Amrish", 0.40, "Neha", 1.05, "Aakash", 0.67, "Akshata"]
+        ];
+          
+        var data = google.visualization.arrayToDataTable(jsonData);
+
+        var options = {
+          title: 'Percentage Weight Change',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    
+</head>
+<body>
+	<div id="centerBody">
+		<p style="	font-family:Shadows Into Light; 
+					color:white;
+					font-size:300%;
+					padding:50px;">SMF Weight Loss Challenge!</p>
+
+		<div id="countdown"></div>
+		<p id="note"></p>
+	    
+        <div id="curve_chart" style="width: 800px; height: 500px"></div>
+		
+		<!-- Three Line List with secondary info and action -->
+        <style>
+            .leaderboard{
+                margin: auto;
+                width: 100%;
+                background-color: white;
+                margin-top: 20px;
+            }
+            
+            #NameHeading{
+                font-family: 'Raleway', sans-serif;
+                font-size: 150%;
+                margin-top: 20px;
+            }
+        </style>
+        
+
+        <!-- Compiled and minified CSS -->
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+        
+          <!-- Compiled and minified JavaScript -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+        <div class="leaderboard">
+            <div class="row">
+              <div class="col s12">
+                <div class="card-panel teal">
+                  <h5 class="white-text">LEADER BOARD</h5>
+                </div>
+              </div>
+            </div>
+            
+            <ul class="collection" style="width:600px; margin:auto;">
+            
+                <li class="collection-item avatar">
+                  <img src="https://drive.google.com/uc?export=view&amp;id=0B22GPT-oexFcR0lWcUNJWE1LWTg" alt="" class="circle">
+                  <span class="title" style="font-size:150%">Sarita Mathur</span>
+                  <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                  <div style="width: 480px; margin-top:5px">
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Current Weight</div>
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Initial Weight</div>
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Difference</div>
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Percent Change</div>
+                    </div>
+                    <div style="width: 480px;">
+                     <div style="float: left; width: 120px;">175.3</div>
+                     <div style="float: left; width: 120px;">175.7</div>
+                     <div style="float: left; width: 120px;">-0.4 lb</div>
+                     <div style="float: left; width: 120px;">-0.23%</div>
+                    </div>
+                </li>
+                
+                <li class="collection-item avatar">
+                  <img src="https://drive.google.com/uc?export=view&amp;id=0B22GPT-oexFceUNxa1hDeUZFbDg" alt="" class="circle">
+                  <span class="title" style="font-size:150%;" >Neha Mathur</span>
+                  <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                  <div style="width: 480; margin-top:5px">
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Current Weight</div>
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Initial Weight</div>
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Difference</div>
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Percent Change</div>
+                    </div>
+                    <div style="width: 480px;">
+                     <div style="float: left; width: 120px;">150.1</div>
+                     <div style="float: left; width: 120px;">149.5</div>
+                     <div style="float: left; width: 120px;">+0.6 lb</div>
+                     <div style="float: left; width: 120px;">+0.40%</div>
+                    </div>
+                </li>
+                
+                <li class="collection-item avatar">
+                  <img src="https://drive.google.com/uc?export=view&amp;id=0B22GPT-oexFccjl1MHRFNWlYV2c" alt="" class="circle">
+                  <span class="title" style="font-size:150%">Akshata Mathur</span>
+                  <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                  <div style="width: 480px; margin-top:5px">
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Current Weight</div>
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Initial Weight</div>
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Difference</div>
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Percent Change</div>
+                    </div>
+                    <div style="width: 480px;">
+                     <div style="float: left; width: 120px;">164.5</div>
+                     <div style="float: left; width: 120px;">163.4</div>
+                     <div style="float: left; width: 120px;">+1.1 lb</div>
+                     <div style="float: left; width: 120px;">+0.67%</div>
+                    </div>
+                </li>
+                
+                <li class="collection-item avatar">
+                  <img src="https://drive.google.com/uc?export=view&amp;id=0B22GPT-oexFceEJZVjFLUDZibzQ" alt="" class="circle">
+                  <span class="title" style="font-size:150%">Aakash Mathur</span>
+                  <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                  <div style="width: 480px; margin-top:5px">
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Current Weight</div>
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Initial Weight</div>
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Difference</div>
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Percent Change</div>
+                    </div>
+                    <div style="width: 480px;">
+                     <div style="float: left; width: 120px;">212.5</div>
+                     <div style="float: left; width: 120px;">210.3</div>
+                     <div style="float: left; width: 120px;">+2.2 lb</div>
+                     <div style="float: left; width: 120px;">+1.05%</div>
+                    </div>
+                </li>
+                
+                <li class="collection-item avatar">
+                  <img src="https://drive.google.com/uc?export=view&amp;id=0B22GPT-oexFcdTVpS0stWkV4OVE" alt="" class="circle">
+                  <span class="title" style="font-size:150%">Amrish Raj</span>
+                  <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                  <div style="width: 480px; margin-top:5px">
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Current Weight</div>
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Initial Weight</div>
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Difference</div>
+                     <div style="float: left; width: 120px; font-family: Shadows Into Light;">Percent Change</div>
+                    </div>
+                    <div style="width: 480px;">
+                     <div style="float: left; width: 120px;">178.1</div>
+                     <div style="float: left; width: 120px;">176.1</div>
+                     <div style="float: left; width: 120px;">2 lb</div>
+                     <div style="float: left; width: 120px;">+1.14%</div>
+                    </div>
+                </li>
+                
+            </ul>
+            <div style="width: 400px; height:20px;"> </div>
+            
+            
+        </div>
+     
+     <style>
+        #logContent{
+            width=10%; text-align:center;
+        }
+        #logContentLong{
+            width=30%; text-align:center;
+        }
+     </style>
+     
+     <div id="weighIns" style="background-color:white; margin-top:20px; margin-bottom:50px;" >
+        <div class="row">
+              <div class="col s12">
+                <div class="card-panel teal">
+                  <h5 class="white-text">WEIGH IN LOG</h5>
+                </div>
+              </div>
+        </div>
+         
+        <div class="responsive-table" style="margin:10px; text-align:center;">
+            <table>
+                <thead>
+                    <tr>
+                        <th data-field="date" id="logContentLong">Date</th>
+                        <th data-field="name" id="logContent">Mom</th>
+                        <th data-field="name" id="logContent">Amrish</th>
+                        <th data-field="name" id="logContent">Neha</th>
+                        <th data-field="name" id="logContent">Aakash</th>
+                        <th data-field="name" id="logContent">Akshata</th>
+                        <th data-field="name" id="logContent">Krisha</th>
+                        <th data-field="name" id="logContent">Krishiv</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    <tr>
+                        <td id="logContentLong">7/9/2016</td>
+                        <td id="logContent">175.7</td>
+                        <td id="logContent">176.1</td>
+                        <td id="logContent">149.5</td>
+                        <td id="logContent">210.3</td>
+                        <td id="logContent">163.4</td>
+                        <td id="logContent">40.3</td>
+                        <td id="logContent">33.3</td>
+                    </tr>
+                    <tr>
+                        <td id="logContentLong">7/16/2016</td>
+                        <td id="logContent">178</td>
+                        <td id="logContent">179.7</td>
+                        <td id="logContent">149.9</td>
+                        <td id="logContent">213</td>
+                        <td id="logContent">166.4</td>
+                        <td id="logContent">40.3</td>
+                        <td id="logContent">33.3</td>
+                    </tr>
+                    <tr>
+                        <td id="logContentLong">7/23/2016</td>
+                        <td id="logContent">177.9</td>
+                        <td id="logContent">177.9</td>
+                        <td id="logContent">149.9</td>
+                        <td id="logContent">210.5</td>
+                        <td id="logContent">164.2</td>
+                        <td id="logContent">40.3</td>
+                        <td id="logContent">33.5</td>
+                    </tr>
+                    <tr>
+                        <td id="logContentLong">7/30/2016</td>
+                        <td id="logContent">178.8</td>
+                        <td id="logContent">176.8</td>
+                        <td id="logContent">151.5</td>
+                        <td id="logContent">209.9</td>
+                        <td id="logContent">166.2</td>
+                        <td id="logContent">41</td>
+                        <td id="logContent">33.5</td>
+                    </tr>
+                    <tr>
+                        <td id="logContentLong">8/8/2016</td>
+                        <td id="logContent">175.3</td>
+                        <td id="logContent">178.1</td>
+                        <td id="logContent">150.1</td>
+                        <td id="logContent">212.5</td>
+                        <td id="logContent">164.5</td>
+                        <td id="logContent">42.5</td>
+                        <td id="logContent">34.4</td>
+                    </tr>
+              
+                </tbody>
+            </table>
+        </div>
+     </div>
+	
+	
+
+	
+	</div>
+	
+	<script type="text/javascript">
+	    /**
+         * @name		jQuery Countdown Plugin
+         * @author		Martin Angelov
+         * @version 	1.0
+         * @url			http://tutorialzine.com/2011/12/countdown-jquery/
+         * @license		MIT License
+         */
+        
+        (function($){
+        	
+        	// Number of seconds in every time division
+        	var days	= 24*60*60,
+        		hours	= 60*60,
+        		minutes	= 60;
+        	
+        	// Creating the plugin
+        	$.fn.countdown = function(prop){
+        		
+        		var options = $.extend({
+        			callback	: function(){},
+        			timestamp	: 0
+        		},prop);
+        		
+        		var left, d, h, m, s, positions;
+        
+        		// Initialize the plugin
+        		init(this, options);
+        		
+        		positions = this.find('.position');
+        		
+        		(function tick(){
+        			
+        			// Time left
+        			left = Math.floor((options.timestamp - (new Date())) / 1000);
+        			
+        			if(left < 0){
+        				left = 0;
+        			}
+        			
+        			// Number of days left
+        			d = Math.floor(left / days);
+        			updateDuo(0, 1, d);
+        			left -= d*days;
+        			
+        			// Number of hours left
+        			h = Math.floor(left / hours);
+        			updateDuo(2, 3, h);
+        			left -= h*hours;
+        			
+        			// Number of minutes left
+        			m = Math.floor(left / minutes);
+        			updateDuo(4, 5, m);
+        			left -= m*minutes;
+        			
+        			// Number of seconds left
+        			s = left;
+        			updateDuo(6, 7, s);
+        			
+        			// Calling an optional user supplied callback
+        			options.callback(d, h, m, s);
+        			
+        			// Scheduling another call of this function in 1s
+        			setTimeout(tick, 1000);
+        		})();
+        		
+        		// This function updates two digit positions at once
+        		function updateDuo(minor,major,value){
+        			switchDigit(positions.eq(minor),Math.floor(value/10)%10);
+        			switchDigit(positions.eq(major),value%10);
+        		}
+        		
+        		return this;
+        	};
+        
+        
+        	function init(elem, options){
+        		elem.addClass('countdownHolder');
+        
+        		// Creating the markup inside the container
+        		$.each(['Days','Hours','Minutes','Seconds'],function(i){
+        			$('<span class="count'+this+'">').html(
+        				'<span class="position">\
+        					<span class="digit static">0</span>\
+        				</span>\
+        				<span class="position">\
+        					<span class="digit static">0</span>\
+        				</span>'
+        			).appendTo(elem);
+        			
+        			if(this!="Seconds"){
+        				elem.append('<span class="countDiv countDiv'+i+'"></span>');
+        			}
+        		});
+        
+        	}
+        
+        	// Creates an animated transition between the two numbers
+        	function switchDigit(position,number){
+        		
+        		var digit = position.find('.digit')
+        		
+        		if(digit.is(':animated')){
+        			return false;
+        		}
+        		
+        		if(position.data('digit') == number){
+        			// We are already showing this number
+        			return false;
+        		}
+        		
+        		position.data('digit', number);
+        		
+        		var replacement = $('<span>',{
+        			'class':'digit',
+        			css:{
+        				top:'-2.1em',
+        				opacity:0
+        			},
+        			html:number
+        		});
+        		
+        		// The .static class is added when the animation
+        		// completes. This makes it run smoother.
+        		
+        		digit
+        			.before(replacement)
+        			.removeClass('static')
+        			.animate({top:'2.5em',opacity:0},'fast',function(){
+        				digit.remove();
+        			})
+        
+        		replacement
+        			.delay(100)
+        			.animate({top:0,opacity:1},'fast',function(){
+        				replacement.addClass('static');
+        			});
+        	}
+        })(jQuery);
+        
+        $(function(){
+        	var note = $('#note'),
+        		ts = new Date(2016,8,9),
+        		newYear = false;
+        	
+        	if((new Date()) > ts){
+        		// The new year is here! Count towards something else.
+        		// Notice the *1000 at the end - time must be in milliseconds
+        		ts = (new Date()).getTime() + 10*24*60*60*1000;
+        		newYear = false;
+        	}
+        		
+        	$('#countdown').countdown({
+        		timestamp	: ts,
+        		callback	: function(days, hours, minutes, seconds){
+        			
+        			var message = "";
+        			
+        			message += days + " day" + ( days==1 ? '':'s' ) + ", ";
+        			message += hours + " hour" + ( hours==1 ? '':'s' ) + ", ";
+        			message += minutes + " minute" + ( minutes==1 ? '':'s' ) + " and ";
+        			message += seconds + " second" + ( seconds==1 ? '':'s' ) + " remaining! ";
+        			note.html(message);
+        		}
+        	});
+        	
+        });
+        
+	</script>
+</body>
+</html>
